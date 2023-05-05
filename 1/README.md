@@ -14,3 +14,8 @@ python train.py
 ```bash
 python predict.py -i <path_to_image>
 ```
+
+## Run pre-trained model
+```bash
+python pre_trained.py -i <path_to_image>
+```
