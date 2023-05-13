@@ -1,3 +1,5 @@
+import glob
+import os
 from typing import List, Tuple, Any
 
 import numpy as np
@@ -49,8 +51,7 @@ def predict(model, image, size=(64, 128), step_size=(9, 9), downscale=1.25) -> L
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Demo for human detection from image")
-    parser.add_argument("-i", "--input", type=str, help="input file", required=True)
-    parser.add_argument("-o", "--output", type=str, default="./output/output.png", help="output file")
+    parser.add_argument("-i", "--input", type=str, default="./data/1/", help="path to images")
     parser.add_argument("-m", "--model", type=str, default="./models/model.dat", help="the trained model file")
     args = parser.parse_args()
     return args
@@ -71,19 +72,22 @@ def draw_detections(image, detections):
     return clone
 
 
+def read_images(image_path):
+    for filename in glob.glob(os.path.join(image_path, "*.png")):
+        image = cv2.imread(filename)
+        image = cv2.resize(image, (400, 256))
+        yield image
+
+
 def main():
     args = parse_args()
-
-    image = cv2.imread(args.input)
-    image = cv2.resize(image, (400, 256))
     model = joblib.load(args.model)
 
-    detections = predict(model, image)
-    clone = draw_detections(image, detections)
-
-    cv2.imwrite(args.output, clone)
-    cv2.imshow("Detections", clone)
-    cv2.waitKey(0)
+    for image in read_images(args.input):
+        detections = predict(model, image)
+        image = draw_detections(image, detections)
+        cv2.imshow("Detections", image)
+        cv2.waitKey(0)
 
 
 if __name__ == "__main__":
