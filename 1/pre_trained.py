@@ -46,7 +46,7 @@ def detect_pedestrian(image, hog):
 
 def parse_args():
     args = argparse.ArgumentParser(description="Train human detection model")
-    args.add_argument("-i", "--input", type=str, help="Path to images", default="./data/1", required=False)
+    args.add_argument("-i", "--input", type=str, help="Path to images", default="./data/2", required=False)
     args = args.parse_args()
     return args
 
