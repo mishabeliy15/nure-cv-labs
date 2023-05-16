@@ -51,7 +51,7 @@ def predict(model, image, size=(64, 128), step_size=(9, 9), downscale=1.25) -> L
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Demo for human detection from image")
-    parser.add_argument("-i", "--input", type=str, default="./data/1/", help="path to images")
+    parser.add_argument("-i", "--input", type=str, default="./data/1_1/", help="path to images")
     parser.add_argument("-m", "--model", type=str, default="./models/model.dat", help="the trained model file")
     args = parser.parse_args()
     return args

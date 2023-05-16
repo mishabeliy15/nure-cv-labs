@@ -24,7 +24,7 @@ def load_images(image_path: str, label: int) -> Tuple[List[np.ndarray], List[int
 
 
 def train_and_evaluate_model(X_train, y_train, X_test, y_test) -> LinearSVC:
-    model = LinearSVC(max_iter=10000)
+    model = LinearSVC(C=0.01, max_iter=1000, class_weight='balanced', verbose=1)
     model.fit(X_train, y_train)
     y_pred = model.predict(X_test)
     print(
