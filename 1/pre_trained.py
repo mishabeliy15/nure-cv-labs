@@ -15,19 +15,6 @@ def read_images(image_path):
         yield image
 
 
-def suppression_image(image, regions):
-    image = image.copy()
-
-    rects = np.array([[x, y, x + w, y + h] for (x, y, w, h) in regions])
-    pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
-
-    # draw the final bounding boxes
-    for (xA, yA, xB, yB) in pick:
-        cv2.rectangle(image, (xA, yA), (xB, yB), (0, 255, 0), 2)
-
-    return image
-
-
 def detect_pedestrian(image, hog):
     # Resizing the Image
     image = imutils.resize(image, width=min(400, image.shape[1]))
