@@ -2,30 +2,14 @@ import argparse
 import glob
 import os
 
-import numpy as np
-
 import cv2
 import imutils
-from imutils.object_detection import non_max_suppression
 
 
 def read_images(image_path):
     for filename in glob.glob(os.path.join(image_path, "*.png")):
         image = cv2.imread(filename)
         yield image
-
-
-def suppression_image(image, regions):
-    image = image.copy()
-
-    rects = np.array([[x, y, x + w, y + h] for (x, y, w, h) in regions])
-    pick = non_max_suppression(rects, probs=None, overlapThresh=0.65)
-
-    # draw the final bounding boxes
-    for (xA, yA, xB, yB) in pick:
-        cv2.rectangle(image, (xA, yA), (xB, yB), (0, 255, 0), 2)
-
-    return image
 
 
 def detect_pedestrian(image, hog):
