@@ -30,10 +30,10 @@ def predict(model, image, size=(64, 128), step_size=(9, 9), downscale=1.25) -> L
                 continue
             window = color.rgb2gray(window)
 
-            fd = hog(window, orientations=9, pixels_per_cell=(8, 8), visualize=False, cells_per_block=(3, 3))
+            fd = hog(window, pixels_per_cell=(8, 8), visualize=False, cells_per_block=(3, 3))
             fd = fd.reshape(1, -1)
             pred = model.predict(fd)
-            if pred == 1 and model.decision_function(fd) > 0.75:
+            if pred == 1 and model.decision_function(fd) > 0.2:
                 detections.append(
                     (
                         int(x * (downscale ** scale)),

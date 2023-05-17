@@ -1,4 +1,4 @@
-# KhNure Computer Vision Lab № 2
+# KhNure Computer Vision Lab № 3
 ## Set up environment
 ```bash
 python3 -m venv venv
